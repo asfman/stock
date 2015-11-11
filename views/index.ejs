@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="/javascripts/vue-dev.js"></script>
+    <style type="text/css">
+    .class-a {
+    	color: red;
+    }
+    .class-b {
+    	border-bottom: 1px dashed #ddd;
+    }
+    </style>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+	<div id="app">
+	  <p>{{ message }}</p>
+	  <button v-on:click="reverseMessage">Reverse Message</button>
+	</div>  
+	<ul id="example-1">
+	  <li v-for="item in items">
+	    {{ item.message }}
+	  </li>
+	</ul>	
+	<div id="example-2" v-bind:class="[classA, classB]">
+	  <p v-if="greeting">Hello!</p>
+	  <span>Message is: {{ message }}</span>
+	  <br />
+	  <input v-model="message" @keyup.13="submitHandler" />
+	  <br />
+	  <input type="checkbox" id="checkbox" v-model="checked">
+	  <label for="checkbox">{{ checked ? "checked" : "unchecked" }}</label><br />
+	  <select v-model="selected">
+		  <option selected>A</option>
+		  <option>B</option>
+		  <option>C</option>
+	   </select>
+	   <span>Selected: {{ selected }}</span>
+	</div>	
+	<div id="example-component">
+	  <my-component msg="cao"></my-component>
+	</div>	
+	<div id="stock">
+		<input v-model="stock_name" @keyup.enter="fetchData" />
+		<div>{{ result }}</div>
+	</div>
+    <script type="text/javascript">
+
+    	new Vue({
+    		el: "#stock",
+    		data: {
+    			stock_name: "sh600887",
+    			result: null    		},
+    		methods: {
+    			fetchData: function() {
+    				var _this = this;
+					var apiUrl = "http://localhost:3333/api/query/" + this.stock_name
+					var xhr = new XMLHttpRequest()
+					xhr.open('GET', apiUrl)
+					xhr.onload = function () {
+						_this.result = xhr.responseText
+					}
+					xhr.send()    				
+    			}
+    		}
+    	});
+		new Vue({
+		  el: '#app',
+		  data: {
+		    message: 'Hello Vue.js!'
+		  },
+		  methods: {
+		    reverseMessage: function (e) {
+		      this.message = this.message.split('').reverse().join('');
+		      alert(e.target.tagName);
+		    }
+		  }
+		});
+
+		var example1 = new Vue({
+		  el: '#example-1',
+		  data: {
+		    items: [
+		      { message: 'Foo' },
+		      { message: 'Bar' }
+		    ]
+		  }
+		});
+
+		var exampleVM2 = new Vue({
+		  el: '#example-2',
+		  data: {
+		    greeting: true,
+		    classA:"class-a",
+		    classB:"class-b",
+		    submitHandler: function() {
+		    	alert("fuck");
+		    }
+		  },
+		  created: function () {
+		    console.log('greeting is: ' + this.greeting)
+		  }
+		});	
+
+		// define
+		var MyComponent = Vue.extend({
+		  props: ['msg'],
+		  template: '<div>A custom component! {{msg}}</div>'
+		})
+
+		// register
+		Vue.component('my-component', MyComponent)
+
+		// create a root instance
+		new Vue({
+		  el: '#example-component'
+		})		
+    </script>
+  </body>
+</html>
