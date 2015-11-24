@@ -27,7 +27,7 @@ router.route("/query/:code").get(function(req, res, next) {
       });
       sres.on('end',function(){ 
         var str = iconv.decode(bufferHelper.toBuffer(),'GBK');
-        str = str.substring(str.indexOf("\"")+1,str.lastIndexOf("\""));
+        //str = str.substring(str.indexOf("\"")+1,str.lastIndexOf("\""));
         res.end(str);
       });
     });

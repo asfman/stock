@@ -3,7 +3,6 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script type="text/javascript" src="/javascripts/vue-dev.js"></script>
     <style type="text/css">
     .class-a {
     	color: red;
@@ -11,6 +10,7 @@
     .class-b {
     	border-bottom: 1px dashed #ddd;
     }
+    .hide {display: none;}
     </style>
   </head>
   <body>
@@ -41,83 +41,23 @@
 	   <span>Selected: {{ selected }}</span>
 	</div>	
 	<div id="example-component">
-	  <my-component msg="cao"></my-component>
+	  <my-component msg="hello msg"></my-component>
 	</div>	
 	<div id="stock">
-		<input v-model="stock_name" @keyup.enter="fetchData" />
+		<stock code="sh000001"></stock>
+		<stock code="600122"></stock>
+		<stock code="300345"></stock>
+		<input type="button" @click="controllHandler" value="start" />
+	</div>	
+
+	<!-- 子组件模板 -->
+	<template id="child-template">
 		<div>{{ result }}</div>
-	</div>
+	</template>
+	<script type="text/javascript" src="/javascripts/build/index.build.js"></script>
+	<!--script type="text/javascript" src="/javascripts/vue-dev.js"></script>-->
     <script type="text/javascript">
-
-    	new Vue({
-    		el: "#stock",
-    		data: {
-    			stock_name: "sh600887",
-    			result: null    		},
-    		methods: {
-    			fetchData: function() {
-    				var _this = this;
-					var apiUrl = "http://localhost:3333/api/query/" + this.stock_name
-					var xhr = new XMLHttpRequest()
-					xhr.open('GET', apiUrl)
-					xhr.onload = function () {
-						_this.result = xhr.responseText
-					}
-					xhr.send()    				
-    			}
-    		}
-    	});
-		new Vue({
-		  el: '#app',
-		  data: {
-		    message: 'Hello Vue.js!'
-		  },
-		  methods: {
-		    reverseMessage: function (e) {
-		      this.message = this.message.split('').reverse().join('');
-		      alert(e.target.tagName);
-		    }
-		  }
-		});
-
-		var example1 = new Vue({
-		  el: '#example-1',
-		  data: {
-		    items: [
-		      { message: 'Foo' },
-		      { message: 'Bar' }
-		    ]
-		  }
-		});
-
-		var exampleVM2 = new Vue({
-		  el: '#example-2',
-		  data: {
-		    greeting: true,
-		    classA:"class-a",
-		    classB:"class-b",
-		    submitHandler: function() {
-		    	alert("fuck");
-		    }
-		  },
-		  created: function () {
-		    console.log('greeting is: ' + this.greeting)
-		  }
-		});	
-
-		// define
-		var MyComponent = Vue.extend({
-		  props: ['msg'],
-		  template: '<div>A custom component! {{msg}}</div>'
-		})
-
-		// register
-		Vue.component('my-component', MyComponent)
-
-		// create a root instance
-		new Vue({
-		  el: '#example-component'
-		})		
+		
     </script>
   </body>
 </html>
