@@ -31,7 +31,7 @@
 					if(code.length != 6 && code.length != 8) return;
 					if(code.length == 6)
 						code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
-					var apiUrl = "http://localhost:3333/api/query/" + code;
+					var apiUrl = "http://asfman.com/api/query/" + code;
 					$.get(apiUrl, function(result){
 						alert(result);
 						// var responseText = xhr.responseText;
