@@ -16,7 +16,7 @@ router.route("/stock/:code").post(function(req, res, next) {//更新是否解决
 });
 router.route("/query/:code").get(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
-	console.log(req.params.code);
+	//console.log(req.params.code);
 	var url = "http://hq.sinajs.cn/list=" + req.params.code;
 	var http = require('http');
 	var BufferHelper = require('bufferhelper');
