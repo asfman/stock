@@ -24,7 +24,6 @@
 			},
 			methods: {
 				getPrice: function() {
-					alert(xhr)
 					code = this.code;
 					if(!code) return this.result="";
 					code += "";
@@ -38,6 +37,7 @@
 					xhr.onload = function () {
 						var responseText = xhr.responseText;
 						eval(responseText);
+						alert(responseText);
 						console.log(responseText);
 						var result = eval("hq_str_" + code);
 						 _this.result = formatResult(result);	
