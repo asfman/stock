@@ -33,6 +33,7 @@
 						code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
 					var apiUrl = "http://localhost:3333/api/query/" + code;
 					$.get(apiUrl, function(){
+						alert(111);
 						var responseText = xhr.responseText;
 						eval(responseText);
 
