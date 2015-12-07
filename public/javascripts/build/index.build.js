@@ -162,7 +162,7 @@
 							code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
 						codes.push(code);
 					});
-					var apiUrl = "http://localhost:3333/api/query/" + codes.join(",");
+					var apiUrl = "http://" + location.host + "/api/query/" + codes.join(",");
 					xhr.open('GET', apiUrl);
 					xhr.onload = function () {
 						var responseText = xhr.responseText;
