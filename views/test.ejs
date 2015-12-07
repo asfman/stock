@@ -32,18 +32,14 @@
 					if(code.length == 6)
 						code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
 					var apiUrl = "http://localhost:3333/api/query/" + code;
-					xhr.open('GET', apiUrl);
-					var _this = this;
-					xhr.onload = function () {
-						alert(111);
+					$.get(apiUrl, function(){
 						var responseText = xhr.responseText;
 						eval(responseText);
 
 						console.log(responseText);
 						var result = eval("hq_str_" + code);
-						 _this.result = formatResult(result);	
-					}
-					xhr.send();
+						 _this.result = formatResult(result);							
+					});
 				}
 			}
 		})
