@@ -59,6 +59,7 @@
 				code = this.code;
 				if(!code) return;
 				code += "";
+				code = code.toLowerCase();
 				if(code.length != 6 && code.length != 8) return;
 				if(code.length == 6)
 					code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
@@ -115,7 +116,7 @@
 	new Vue({
 	  el: '#stock_ct',
 	  data: {
-	    currentView: 'edit'
+	    currentView: 'realtime'
 	  },
 	  methods: {
 	  	switchTab: function(e) {

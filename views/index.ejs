@@ -75,13 +75,12 @@
 	.results {
 		line-height: 1.6rem;
 	}
+	.search {padding: 4px 8px;}
     </style>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
 	<div id="stock-search">
-		<input placeholder="search" type="text" v-model="code" @keyup.enter="getPrice" />
+		<input class="search" placeholder="input code to search" type="text" v-model="code" @keyup.enter="getPrice" />
 		<p>{{ result }}</p>
 	</div>
 

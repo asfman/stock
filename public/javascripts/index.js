@@ -13,6 +13,7 @@ new Vue({
 			code = this.code;
 			if(!code) return;
 			code += "";
+			code = code.toLowerCase();
 			if(code.length != 6 && code.length != 8) return;
 			if(code.length == 6)
 				code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
@@ -36,7 +37,7 @@ function formatResult(result) {
 	var lastPrice = ret[2];
 	var percent = (ret[3] - ret[2]) * 100 /ret[2];
 	//ret[0] + " " +
-	return parseFloat(ret[3],10).toFixed(2) + " " + percent.toFixed(2) 
+	return ret[0] + " " + parseFloat(ret[3],10).toFixed(2) + " " + percent.toFixed(2) 
 	+ " " + parseFloat(ret[2],10).toFixed(2)
 	+ " " + parseFloat(ret[4],10).toFixed(2) 
 	+ " " + parseFloat(ret[5],10).toFixed(2); 	
@@ -69,7 +70,7 @@ function initSortable(vm) {
 new Vue({
   el: '#stock_ct',
   data: {
-    currentView: 'edit'
+    currentView: 'realtime'
   },
   methods: {
   	switchTab: function(e) {
