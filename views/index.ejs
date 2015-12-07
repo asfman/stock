@@ -4,55 +4,111 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <style type="text/css">
-    .class-a {
-    	color: red;
-    }
-    .class-b {
-    	border-bottom: 1px dashed #ddd;
-    }
     .hide {display: none;}
+    * {-webkit-box-sizing:border-box;}
+    #editable_ct {
+    	max-width: 360px;
+    }
+    #editable {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+    }
+	#editable li {
+		position: relative;
+		/*cursor: move;*/
+		padding: 10px 20px;
+		background: #f1f1f1;
+		border: 1px dashed #ccc;
+		margin: 0 0 6px;
+	}
+
+	#editable i {
+		-webkit-transition: opacity .2s;
+		transition: opacity .2s;
+		opacity: 0;
+		display: block;
+		cursor: pointer;
+		color: #c00;
+		top: 50%;
+		margin-top: -6px;
+		right: 20px;
+		position: absolute;
+		font-style: normal;
+	}
+
+	#editable li:hover i {
+		opacity: 1;
+	}    
+	.add {
+		padding: 5px;
+		font-size: 14px;
+		font-family: 'Roboto', sans-serif;
+		font-weight: 300;
+		width: 100%;
+	}	
+	.drag-handle {
+		margin-right: 10px;
+		font: bold 20px Sans-Serif;
+		color: #5F9EDF;
+		display: inline-block;
+		cursor: move;
+		cursor: -webkit-grabbing;  /* overrides 'move' */
+	}
+	.stock_nav > li.on {
+		color: white;
+		background: #ccc;
+	}	
+	.stock_nav {
+		margin: 10px 0;
+		padding: 0px;
+	}
+	.stock_nav > li {
+		cursor: pointer;
+		display: inline-block;
+		border: 1px soild #ccc;
+		background: #f7f7f7;
+		padding: 6px 12px;
+		margin: 0 6px;
+		border-radius: 5px;
+	}
+	.results {
+		line-height: 1.6rem;
+	}
     </style>
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-	<div id="app">
-	  <p>{{ message }}</p>
-	  <button v-on:click="reverseMessage">Reverse Message</button>
-	</div>  
-	<ul id="example-1">
-	  <li v-for="item in items">
-	    {{ item.message }}
-	  </li>
-	</ul>	
-	<div id="example-2" v-bind:class="[classA, classB]">
-	  <p v-if="greeting">Hello!</p>
-	  <span>Message is: {{ message }}</span>
-	  <br />
-	  <input v-model="message" @keyup.13="submitHandler" />
-	  <br />
-	  <input type="checkbox" id="checkbox" v-model="checked">
-	  <label for="checkbox">{{ checked ? "checked" : "unchecked" }}</label><br />
-	  <select v-model="selected">
-		  <option selected>A</option>
-		  <option>B</option>
-		  <option>C</option>
-	   </select>
-	   <span>Selected: {{ selected }}</span>
-	</div>	
-	<div id="example-component">
-	  <my-component msg="hello msg"></my-component>
-	</div>	
-	<div id="stock">
-		<stock code="sh000001"></stock>
-		<stock code="600122"></stock>
-		<stock code="300345"></stock>
-		<input type="button" @click="controllHandler" value="start" />
-	</div>	
+	<div id="stock-search">
+		<input placeholder="search" type="text" v-model="code" @keyup.enter="getPrice" />
+		<p>{{ result }}</p>
+	</div>
 
 	<!-- 子组件模板 -->
 	<template id="child-template">
 		<div>{{ result }}</div>
+	</template>
+
+	<div id="stock_ct">
+		<ul class="stock_nav">
+			<li @click="switchTab" v-bind:class="[currentView=='realtime'?'on':'off']">realtime</li>
+			<li @click="switchTab" v-bind:class="[currentView=='edit'?'on':'off']">edit</li>
+		</ul>
+		<component :is="currentView" ></component>
+	</div>
+	<template id="results-template">
+		<section id="results_ct">
+			<div class="results">{{{ results }}}</div>
+		</section>
+	</template>
+	<template id="editable-template">
+		<section id="editable_ct">
+			<ul id="editable">
+			  <li v-for="stock in stocks" track-by="$index"><span class="drag-handle">☰</span>{{ stock }}<i class="js-remove">✖</i></li>
+			</ul>
+			<input class="add" type="text" @keyup.enter="add" placeholder="add new stock here" />
+		</section>
 	</template>
 	<script type="text/javascript" src="/javascripts/build/index.build.js"></script>
 	<!--script type="text/javascript" src="/javascripts/vue-dev.js"></script>-->
