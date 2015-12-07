@@ -63,7 +63,7 @@
 				if(code.length != 6 && code.length != 8) return;
 				if(code.length == 6)
 					code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
-				var apiUrl = "http://" + location.host + "/api/query/" + code;
+				var apiUrl = "http://asfman.com/api/query/" + code;
 				xhr.open('GET', apiUrl);
 				var _this = this;
 				xhr.onload = function () {
