@@ -11,7 +11,7 @@ new Vue({
 	methods: {
 		getPrice: function() {
 			code = this.code;
-			if(!code) return;
+			if(!code) return this.result="";
 			code += "";
 			code = code.toLowerCase();
 			if(code.length != 6 && code.length != 8) return;
@@ -66,7 +66,7 @@ function initSortable(vm) {
 		}
 	});	
 }
-
+var defaultStocks = ["sh000001", "sz399006", "600122", "300345"];
 new Vue({
   el: '#stock_ct',
   data: {
@@ -90,6 +90,7 @@ new Vue({
 			};
 		},   		
   		ready: function() {
+  			if(!this.stocks) this.stocks = defaultStocks;
   			this.start();
   		},
   		destroyed: function() {
@@ -143,6 +144,7 @@ new Vue({
 					xhr.abort();			
 			},
 			start: function() {
+				if(!this.stocks || !this.stocks.length) return;
 				this.getPrice();
 				var _this = this;
 				this.startTimer = setTimeout(function(){_this.fetchData();}, this.timeout);
@@ -162,7 +164,7 @@ new Vue({
 		template:"#editable-template",
 		data: function() {
 			return {
-				stocks: ["sh000001", "sz399006", "600122", "300345", "000762"]
+				stocks: defaultStocks
 			};
 		},
 		watch: {
