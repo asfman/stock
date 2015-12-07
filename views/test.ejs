@@ -32,15 +32,17 @@
 					if(code.length == 6)
 						code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
 					var apiUrl = "http://asfman.com/api/query/" + code;
-					$.get(apiUrl, function(result){
-						alert(result);
-						// var responseText = xhr.responseText;
-						// eval(responseText);
+					xhr.open('GET', apiUrl);
+					var _this = this;
+					xhr.onload = function () {
+						var responseText = xhr.responseText;
+						eval(responseText);
 
-						// console.log(responseText);
-						// var result = eval("hq_str_" + code);
-						//  _this.result = formatResult(result);							
-					});
+						console.log(responseText);
+						var result = eval("hq_str_" + code);
+						 _this.result = formatResult(result);	
+					}
+					xhr.send();
 				}
 			}
 		})
