@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <style type="text/css">
+    	.search {padding: 4px 8px;}
+    </style>
+  </head>
+  <body>
+	<div id="stock-search">
+		<input class="search" placeholder="input code to search" type="text" v-model="code" @keyup.enter="getPrice" />
+		<p>{{ result }}</p>
+	</div>
+	<script type="text/javascript" src="/javascripts/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="/javascripts/vue-dev.js"></script>
+    <script type="text/javascript">
+		var xhr = new XMLHttpRequest();
+		new Vue({
+			el: "#stock-search",
+			data: {
+				code: null,
+				result: null
+			},
+			methods: {
+				getPrice: function() {
+					code = this.code;
+					if(!code) return this.result="";
+					code += "";
+					code = code.toLowerCase();
+					if(code.length != 6 && code.length != 8) return;
+					if(code.length == 6)
+						code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
+					var apiUrl = "http://localhost:3333/api/query/" + code;
+					xhr.open('GET', apiUrl);
+					var _this = this;
+					xhr.onload = function () {
+						var responseText = xhr.responseText;
+						eval(responseText);
+						console.log(responseText);
+						var result = eval("hq_str_" + code);
+						 _this.result = formatResult(result);	
+					}
+					xhr.send();
+				}
+			}
+		})
+
+		function formatResult(result) {
+			var ret = result.split(",");
+			var lastPrice = ret[2];
+			var percent = (ret[3] - ret[2]) * 100 /ret[2];
+			//ret[0] + " " +
+			return ret[0] + " " + parseFloat(ret[3],10).toFixed(2) + " " + percent.toFixed(2) 
+			+ " " + parseFloat(ret[2],10).toFixed(2)
+			+ " " + parseFloat(ret[4],10).toFixed(2) 
+			+ " " + parseFloat(ret[5],10).toFixed(2); 	
+		}		
+    </script>
+  </body>
+</html>	    
