@@ -35,9 +35,10 @@
 					xhr.open('GET', apiUrl);
 					var _this = this;
 					xhr.onload = function () {
+						alert(111);
 						var responseText = xhr.responseText;
 						eval(responseText);
-						alert(responseText);
+
 						console.log(responseText);
 						var result = eval("hq_str_" + code);
 						 _this.result = formatResult(result);	
