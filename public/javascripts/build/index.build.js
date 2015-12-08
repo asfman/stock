@@ -104,11 +104,13 @@
 			},
 			// dragging ended
 			onEnd: function (/**Event*/evt) {
-				var swapItems = function(arr, index1, index2) {
-			        arr[index1] = arr.splice(index2, 1, arr[index1])[0];
-			        return arr;
-			    };			
-				swapItems(vm.stocks,evt.oldIndex, evt.newIndex);
+				if(evt.newIndex == evt.oldIndex) return;
+				var arr = [];
+				$(evt.item.parentNode).find(".code").each(function(){
+					arr.push($(this).html());
+				});
+				vm.stocks = arr;
+			    //console.log(evt.newIndex + " - " + evt.oldIndex);		
 			}
 		});	
 	}
@@ -221,7 +223,7 @@
 			},
 			methods: {
 				add: function(e) {
-					this.stocks.unshift(e.target.value);
+					this.stocks.push(e.target.value);
 					e.target.value = "";
 				}
 			},

@@ -105,7 +105,7 @@
 	<template id="editable-template">
 		<section id="editable_ct">
 			<ul id="editable">
-			  <li v-for="stock in stocks" track-by="$index"><span class="drag-handle">☰</span>{{ stock }}<i class="js-remove">✖</i></li>
+			<li v-for="stock in stocks" track-by="$index"><span class="drag-handle">☰</span><span class="code">{{ stock }}</span><i class="js-remove">✖</i></li>
 			</ul>
 			<input class="add" type="text" @keyup.enter="add" placeholder="add new stock here" />
 		</section>
