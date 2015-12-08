@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
     <link rel='stylesheet' href='/stylesheets/style.css?v=2' />
     <style type="text/css">
+    body {background: #f7f7f7;}
     .hide {display: none;}
     * {-webkit-box-sizing:border-box;}
     #editable_ct {
@@ -14,14 +15,13 @@
 		list-style: none;
 		margin: 0;
 		padding: 0;
+		border: 1px solid #eee;
     }
 	#editable li {
 		position: relative;
-		/*cursor: move;*/
+		cursor: move;
 		padding: 10px 20px;
-		background: #f1f1f1;
-		border: 1px dashed #ccc;
-		margin: 0 0 6px;
+		background: #fff;
 	}
 
 	#editable i {
@@ -36,21 +36,16 @@
 		right: 20px;
 		position: absolute;
 		font-style: normal;
+		font-size: 20px;
+		font-weight: 300;		
 	}
 
 	#editable li:hover i {
 		opacity: 1;
-	}    
-	.add {
-		padding: 5px;
-		font-size: 14px;
-		font-family: 'Roboto', sans-serif;
-		font-weight: 300;
-		width: 100%;
-	}	
+	}
 	.drag-handle {
 		margin-right: 10px;
-		font: bold 20px Sans-Serif;
+		font: bold 18px Sans-Serif;
 		color: #5F9EDF;
 		display: inline-block;
 		cursor: move;
@@ -74,9 +69,20 @@
 		border-radius: 5px;
 	}
 	.results {
-		line-height: 1.6rem;
+		line-height: 2.2rem;
+		border: 1px solid #eee;
+		background: #fff;
+		max-width: 360px;
+		padding: 6px 20px;
 	}
-	.search {padding: 4px 8px;}
+	.add {
+		padding: 5px;
+		font-size: 14px;
+		font-weight: 300;
+		width: 100%;
+		border: 1px solid #eee;
+	}		
+	.search {padding: 4px 8px;border: 1px solid #eee;}
     </style>
   </head>
   <body>
@@ -105,9 +111,9 @@
 	<template id="editable-template">
 		<section id="editable_ct">
 			<ul id="editable">
-			<li v-for="stock in stocks" track-by="$index"><span class="drag-handle">☰</span><span class="code">{{ stock }}</span><i class="js-remove">✖</i></li>
+			<li v-for="stock in stocks" track-by="$index"><!--span class="drag-handle">☰</span>--><span class="code">{{ stock }}</span><i class="js-remove">✖</i></li>
 			</ul>
-			<input class="add" type="text" @keyup.enter="add" placeholder="add new stock here" />
+			<input class="add" type="text" @keyup.enter="add" placeholder="add new stock here, press enter to add" />
 		</section>
 	</template>
 	<script type="text/javascript" src="/javascripts/build/index.build.js?v=1"></script>

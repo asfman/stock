@@ -49,7 +49,7 @@ function initSortable(vm) {
 	// Editable list
 	var editableList = Sortable.create(el, {
 		filter: '.js-remove',
-		handle: '.drag-handle',
+		//handle: '.drag-handle',
 		animation: 150,	
 		onFilter: function (evt) {
 			//var el = editableList.closest(evt.item); // get dragged item
