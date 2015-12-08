@@ -90,12 +90,6 @@
 		<input class="search" placeholder="input code to search" type="text" v-model="code" @keyup.enter="getPrice" />
 		<p>{{ result }}</p>
 	</div>
-
-	<!-- 子组件模板 -->
-	<template id="child-template">
-		<div>{{ result }}</div>
-	</template>
-
 	<div id="stock_ct">
 		<ul class="stock_nav">
 			<li @click="switchTab" v-bind:class="[currentView=='realtime'?'on':'off']">realtime</li>
