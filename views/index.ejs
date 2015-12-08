@@ -16,14 +16,14 @@
 		margin: 0;
 		padding: 0;
 		border: 1px solid #eee;
+		background: #fff;
+		border-radius: 8px;
     }
 	#editable li {
 		position: relative;
 		cursor: move;
 		padding: 10px 20px;
-		background: #fff;
 	}
-
 	#editable i {
 		-webkit-transition: opacity .2s;
 		transition: opacity .2s;
@@ -64,9 +64,9 @@
 		display: inline-block;
 		border: 1px soild #ccc;
 		background: #f7f7f7;
-		padding: 6px 12px;
+		padding: 6px 16px;
 		margin: 0 6px;
-		border-radius: 5px;
+		border-radius: 8px;
 	}
 	.results {
 		line-height: 2.2rem;
@@ -76,13 +76,21 @@
 		padding: 6px 20px;
 	}
 	.add {
-		padding: 5px;
+		padding: 8px;
 		font-size: 14px;
 		font-weight: 300;
 		width: 100%;
 		border: 1px solid #eee;
+		margin-top: 10px;
+		background: #fff;
+		border-radius: 8px;
 	}		
-	.search {padding: 4px 8px;border: 1px solid #eee;}
+	.search {
+		padding: 8px;
+		min-width: 160px;
+		border: 1px solid #eee;
+		border-radius: 8px;
+	}
     </style>
   </head>
   <body>
