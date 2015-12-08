@@ -22,8 +22,10 @@
 	#editable li {
 		position: relative;
 		cursor: move;
-		border-bottom: 1px dashed #eee;
 		padding: 10px 20px;
+	}
+	#editable li:not(:last-child) {
+		border-bottom: 1px dashed #eee;
 	}
 	#editable i {
 		-webkit-transition: opacity .2s;
