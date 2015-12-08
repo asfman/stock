@@ -9,20 +9,20 @@
     .hide {display: none;}
     * {-webkit-box-sizing:border-box;}
     #editable_ct {
-    	max-width: 320rem;
+    	max-width: 360px;
     }
     #editable {
 		list-style: none;
 		margin: 0;
 		padding: 0;
-		border: 1rem solid #eee;
+		border: 1px solid #eee;
 		background: #fff;
-		border-radius: 8rem;
+		border-radius: 8px;
     }
 	#editable li {
 		position: relative;
 		cursor: move;
-		padding: 10rem 20rem;
+		padding: 10px 20px;
 	}
 	#editable i {
 		-webkit-transition: opacity .2s;
@@ -32,11 +32,11 @@
 		cursor: pointer;
 		color: #c00;
 		top: 50%;
-		margin-top: -6rem;
-		right: 20rem;
+		margin-top: -6px;
+		right: 20px;
 		position: absolute;
 		font-style: normal;
-		font-size: 20rem;
+		font-size: 20px;
 		font-weight: 300;		
 	}
 
@@ -44,8 +44,8 @@
 		opacity: 1;
 	}
 	.drag-handle {
-		margin-right: 10rem;
-		font: bold 18rem Sans-Serif;
+		margin-right: 10px;
+		font: bold 18px Sans-Serif;
 		color: #5F9EDF;
 		display: inline-block;
 		cursor: move;
@@ -56,51 +56,42 @@
 		background: #ccc;
 	}	
 	.stock_nav {
-		margin: 10rem 0;
+		margin: 10px 0;
+		padding: 0px;
 	}
 	.stock_nav > li {
 		cursor: pointer;
 		display: inline-block;
-		border: 1rem soild #ccc;
+		border: 1px soild #ccc;
 		background: #f7f7f7;
-		padding: 6rem 16rem;
-		margin: 0 6rem;
-		border-radius: 8rem;
+		padding: 6px 16px;
+		margin: 0 6px;
+		border-radius: 8px;
 	}
 	.results {
-		line-height: 22rem;
-		border: 1rem solid #eee;
+		line-height: 2.2rem;
+		border: 1px solid #eee;
 		background: #fff;
-		max-width: 360rem;
-		padding: 6rem 20rem;
+		max-width: 360px;
+		padding: 6px 20px;
 	}
 	.add {
-		padding: 8rem;
-		font-size: 14rem;
+		padding: 8px;
+		font-size: 14px;
 		font-weight: 300;
 		width: 100%;
-		border: 1rem solid #eee;
-		margin-top: 10rem;
+		border: 1px solid #eee;
+		margin-top: 10px;
 		background: #fff;
-		border-radius: 8rem;
+		border-radius: 8px;
 	}		
 	.search {
-		padding: 8rem;
-		min-width: 160rem;
-		border: 1rem solid #eee;
-		border-radius: 8rem;
-		font-size: 14rem;
+		padding: 8px;
+		min-width: 160px;
+		border: 1px solid #eee;
+		border-radius: 8px;
 	}
     </style>
-    <script type="text/javascript">
-    	void function() {
-	        var phoneWidth = parseInt(window.screen.width);
-	        var rootEle = document.documentElement;
-	        var clientWidth = rootEle.getBoundingClientRect().width;
-	        window.rem = clientWidth / 320;
-	        rootEle.style.fontSize = window.rem + "px";
-    	}();
-    </script>
   </head>
   <body>
 	<div id="stock-search">
