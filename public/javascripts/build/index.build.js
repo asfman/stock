@@ -63,7 +63,7 @@
 				if(code.length != 6 && code.length != 8) return;
 				if(code.length == 6)
 					code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
-				var apiUrl = "http://" +location.host + "/api/query/" + code;
+				var apiUrl =  "/api/query/" + code;
 				xhr.open('GET', apiUrl);
 				var _this = this;
 				xhr.onload = function () {
@@ -164,7 +164,7 @@
 							code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code; 
 						codes.push(code);
 					});
-					var apiUrl = "http://" + location.host + "/api/query/" + codes.join(",");
+					var apiUrl = "/api/query/" + codes.join(",");
 					xhr.open('GET', apiUrl);
 					xhr.onload = function () {
 						var responseText = xhr.responseText;
