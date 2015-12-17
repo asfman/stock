@@ -81,9 +81,11 @@
 	function formatResult(result) {
 		var ret = result.split(",");
 		var lastPrice = ret[2];
-		var percent = (ret[3] - ret[2]) * 100 /ret[2];
+		var percent = ((ret[3] - ret[2]) * 100 /ret[2]).toFixed(2);
+		percent = percent > 0 ? "<span class='red'>" + percent + "</span>"  
+				: (percent < 0 ? "<span class='green'>" + percent + "</span>" : curPrice);	
 		//ret[0] + " " +
-		return ret[0].substr(0,2) + " " + parseFloat(ret[3],10).toFixed(2) + " " + percent.toFixed(2) 
+		return ret[0].substr(0,2) + " " + parseFloat(ret[3],10).toFixed(2) + " " + percent 
 		+ " " + parseFloat(ret[2],10).toFixed(2)
 		+ " " + parseFloat(ret[4],10).toFixed(2) 
 		+ " " + parseFloat(ret[5],10).toFixed(2); 	
