@@ -37,7 +37,7 @@ function formatResult(result) {
 	var lastPrice = ret[2];
 	var percent = (ret[3] - ret[2]) * 100 /ret[2];
 	//ret[0] + " " +
-	return parseFloat(ret[3],10).toFixed(2) + " " + percent.toFixed(2) 
+	return ret[0] + " " + parseFloat(ret[3],10).toFixed(2) + " " + percent.toFixed(2) 
 	+ " " + parseFloat(ret[2],10).toFixed(2)
 	+ " " + parseFloat(ret[4],10).toFixed(2) 
 	+ " " + parseFloat(ret[5],10).toFixed(2); 	
