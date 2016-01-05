@@ -90,7 +90,7 @@
 		var yestodayPrice = "<td class='gray'>" + parseFloat(ret[2],10).toFixed(2) + "</td>";
 		var highestPrice = "<td>" + parseFloat(ret[4],10).toFixed(2) + "</td>";
 		var lowestPrice = "<td>" + parseFloat(ret[5],10).toFixed(2)+ "</td>";
-		sHtml += sCode + curPrice + percent + diff + yestodayPrice + highestPrice + lowestPrice;
+		sHtml += sCode + curPrice + diff + percent + yestodayPrice + highestPrice + lowestPrice;
 		sHtml += "</tr>";
 		return sHtml;	
 	}
