@@ -25,24 +25,28 @@ new Vue({
 				eval(responseText);
 				console.log(responseText);
 				var result = eval("hq_str_" + code);
-				 _this.result = formatResult(result);	
+				 _this.result = "<table cellspacing='0' cellpadding='0'>" + formatResult(result, code) + "</table>";	
 			}
 			xhr.send();
 		}
 	}
 })
 
-function formatResult(result) {
+function formatResult(result, code) {
 	var ret = result.split(",");
-	var lastPrice = ret[2];
+	var sHtml = "<tr>";
+	var sCode = "<td>" + ret[0] + "<br />" + code.replace(/s[hz]/, "") + "</td>";
+	var curPrice = "<td>" + parseFloat(ret[3],10).toFixed(2) + "</td>";
 	var percent = ((ret[3] - ret[2]) * 100 /ret[2]).toFixed(2);
-	percent = percent > 0 ? "<span class='red'>" + percent + "</span>"  
-			: (percent < 0 ? "<span class='green'>" + percent + "</span>" : percent);	
-	//ret[0] + " " +
-	return ret[0].substr(0,2) + " " + parseFloat(ret[3],10).toFixed(2) + " " + percent 
-	+ " " + parseFloat(ret[2],10).toFixed(2)
-	+ " " + parseFloat(ret[4],10).toFixed(2) 
-	+ " " + parseFloat(ret[5],10).toFixed(2); 	
+	percent = "<td class='" + (percent > 0 ? "red" : (percent < 0 ? "green": "")) + "'>" + percent + "%</td>";
+	var diff = (ret[3] - ret[2]).toFixed(2);
+	diff = "<td class='" + (diff > 0 ? "red" : (diff < 0 ? "green": "")) + "'>" + diff + "</td>";
+	var yestodayPrice = "<td class='gray'>" + parseFloat(ret[2],10).toFixed(2) + "</td>";
+	var highestPrice = "<td>" + parseFloat(ret[4],10).toFixed(2) + "</td>";
+	var lowestPrice = "<td>" + parseFloat(ret[5],10).toFixed(2)+ "</td>";
+	sHtml += sCode + curPrice + percent + diff + yestodayPrice + highestPrice + lowestPrice;
+	sHtml += "</tr>";
+	return sHtml;	
 }
 
 function initSortable(vm) {
@@ -129,9 +133,9 @@ new Vue({
 					var results = [];
 					codes.forEach(function(code) {
 						var result = eval("hq_str_" + code);
-						results.push(formatResult(result));
+						results.push(formatResult(result, code));
 					});
-					_this.results = results.join("<br />");
+					_this.results = "<table cellspacing='0' cellpadding='0'>" + results.join("") + "</table>";
 				}
 				xhr.send();
 			},

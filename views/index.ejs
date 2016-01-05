@@ -97,12 +97,25 @@
 	}
 	.red {}
 	.green {color: green;}
+	.gray {color: gray;}
+	table {
+		border-collapse: collapse;
+	}
+	td {
+		padding: 0 4px;
+		line-height: 1.5;
+		border: 1px solid #f7f7f7;
+		text-align: center;
+	}
+	td:first-child{
+		text-align: center;
+	}
     </style>
   </head>
   <body>
 	<div id="stock-search">
 		<input class="search" placeholder="input code to search" type="text" v-model="code" @keyup.enter="getPrice" />
-		<p>{{ result }}</p>
+		<p>{{{ result }}}</p>
 	</div>
 	<div id="stock_ct">
 		<ul class="stock_nav">
