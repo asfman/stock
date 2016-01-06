@@ -8,8 +8,8 @@
     body {background: #f7f7f7;}
     .hide {display: none;}
     * {-webkit-box-sizing:border-box;}
-    #editable_ct {
-    	max-width: 360px;
+    #stock_ct {
+    	max-width: 540px;
     }
     #editable {
 		list-style: none;
@@ -76,7 +76,6 @@
 		line-height: 2.2rem;
 		border: 1px solid #eee;
 		background: #fff;
-		max-width: 540px;
 		padding: 6px 20px;
 	}
 	.add {
@@ -142,8 +141,11 @@
 					<tbody>
 						<tr v-for="tr in results">
 							<td v-for="(idx, td) in tr" track-by="$index">
-								<span v-if="idx==0">{{td[0]}}<br />{{td[1]}}</span>
-								<span v-bind:class="td.indexOf('-')>-1?'green':''" v-else>{{idx==3?td+"%":td}}</span>
+								<p v-if="idx==0">{{td[0]}}<br />{{td[1]}}</p>
+								<p v-bind:class="td.indexOf('-')>-1?'green':''" v-else>
+									<span v-if="tr[5] != 0.00">{{idx==3?td+"%":td}}</span>
+									<span v-else>{{idx == 1 ? td : " - "}}</span>
+								</p>
 							</td>
 						</tr>
 					</tbody>
