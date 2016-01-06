@@ -71,15 +71,14 @@
 					eval(responseText);
 					console.log(responseText);
 					var result = eval("hq_str_" + code);
-					 _this.result = "<table cellspacing='0' cellpadding='0'>" + formatResult(result, code) + "</table>";	
+					 _this.result = "<table cellspacing='0' cellpadding='0'>" + formatResult(result.split(","), code) + "</table>";	
 				}
 				xhr.send();
 			}
 		}
 	})
 	
-	function formatResult(result, code) {
-		var ret = result.split(",");
+	function formatResult(ret, code) {
 		var sHtml = "<tr>";
 		var sCode = "<td>" + ret[0] + "<br />" + code.replace(/s[hz]/, "") + "</td>";
 		var curPrice = "<td>" + parseFloat(ret[3],10).toFixed(2) + "</td>";
@@ -129,6 +128,17 @@
 	  methods: {
 	  	switchTab: function(e) {
 	  		this.currentView = $(e.target).html();
+	  	},
+	  	order: function(e){
+	  		if($(e.target).hasClass("order-unselected")) {
+	  			//order up
+	  			$(e.target).removeClass('order-unselected');
+	  			this.$broadcast("order", 1);
+	  		} else {
+	  			//order normal
+	  			$(e.target).addClass("order-unselected");
+	  			this.$broadcast("order", 0);
+	  		}
 	  	}
 	  },
 	  components: { 	
@@ -140,7 +150,9 @@
 					timeout: 5000,
 					timer: null,
 					startTimer: null,
-					results: null
+					results: null,
+					results_data: null,
+					order: 0
 				};
 			},   		
 	  		ready: function() {
@@ -149,6 +161,13 @@
 	  		},
 	  		destroyed: function() {
 	  			this.clearTimer();
+	  		},
+	  		events: {
+	  			order: function(msg) {
+	  				console.log("order: " + msg);
+	  				this.order = msg;
+	  				this.formatResult();
+	  			}
 	  		},
 			methods: {
 				fetchData: function() {
@@ -176,14 +195,33 @@
 						var responseText = xhr.responseText;
 						eval(responseText);
 						console.log(responseText);
-						var results = [];
+						_this.results_data = [];
 						codes.forEach(function(code) {
 							var result = eval("hq_str_" + code);
-							results.push(formatResult(result, code));
+							_this.results_data.push([result.split(","), code]);
 						});
-						_this.results = "<table cellspacing='0' cellpadding='0'>" + results.join("") + "</table>";
+						_this.formatResult();
 					}
 					xhr.send();
+				},
+				formatResult: function() {
+					if(!this.results_data || !this.results_data.length) return;
+					var sortArr = [];
+					console.log("this.order: " + this.order);
+					if(this.order != 0) {
+						sortArr = this.results_data.slice(0, -1)
+						sortArr.sort(function(a, b){
+							return (b[0][3] - b[0][2]) - (a[0][3] - a[0][2]);
+						});
+					} else {
+						sortArr = this.results_data;
+					}
+					var results = [];
+					sortArr.forEach(function(obj){
+						var result = obj[0], code = obj[1];
+						results.push(formatResult(result, code));
+					});
+					this.results = "<table cellspacing='0' cellpadding='0'>" + results.join("") + "</table>";
 				},
 				clearTimer: function() {
 					if(this.timer) {

@@ -110,6 +110,10 @@
 	td:first-child{
 		text-align: center;
 	}
+	.rel {overflow: hidden;}
+	.fl {float: left;}
+	.order {font-size: 16px; font-weight: bold; margin: 17px 0 0 12px; cursor: pointer;}
+	.order-unselected {color: #ccc;}
     </style>
   </head>
   <body>
@@ -118,10 +122,13 @@
 		<p>{{{ result }}}</p>
 	</div>
 	<div id="stock_ct">
-		<ul class="stock_nav">
-			<li @click="switchTab" v-bind:class="[currentView=='realtime'?'on':'off']">realtime</li>
-			<li @click="switchTab" v-bind:class="[currentView=='edit'?'on':'off']">edit</li>
-		</ul>
+		<div class="rel">
+			<ul class="stock_nav fl">
+				<li @click="switchTab" v-bind:class="[currentView=='realtime'?'on':'off']">realtime</li>
+				<li @click="switchTab" v-bind:class="[currentView=='edit'?'on':'off']">edit</li>
+			</ul>
+			<span @click="order" v-show="currentView=='realtime'" class="fl order order-unselected" v-cloak>↑</span>
+		</div>
 		<component :is="currentView" ></component>
 	</div>
 	<template id="results-template">
