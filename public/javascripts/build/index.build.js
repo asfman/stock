@@ -189,7 +189,7 @@
 				},
 				formatResult: function() {
 					if(!this.results_data || !this.results_data.length) return;
-					this.results = this.results_data.slice(0, -1);
+					this.results = this.results_data.slice(0);
 					console.log("this.order: " + this.order);
 					if(this.order == 1) {
 						this.results.sort(function(a, b){
@@ -212,9 +212,9 @@
 						result[4] = parseFloat(ret[0][2],10).toFixed(2);//yestodayPrice		
 						result[5] = parseFloat(ret[0][4],10).toFixed(2);//highestPrice		
 						result[6] = parseFloat(ret[0][5],10).toFixed(2);//lowestPrice	
-						results.push(result);	
+						results.push(result);
 					});
-					this.results = results;		
+					this.results = results;	
 				},
 				orderHandler: function(e) {
 					var order = parseInt($(e.target).data("order"), 10);
