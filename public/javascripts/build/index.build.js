@@ -221,12 +221,15 @@
 					switch(order) {
 						case 0:
 							order= 1;
+							$(e.target).html("涨幅↑");
 						break;
 						case 1:
 							order= -1;
+							$(e.target).html("涨幅↓");
 						break;
 						case -1:
 							order= 0;
+							$(e.target).html("涨幅");
 						break;
 					}
 					this.order = order;
