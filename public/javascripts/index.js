@@ -82,17 +82,6 @@ new Vue({
   methods: {
   	switchTab: function(e) {
   		this.currentView = $(e.target).html();
-  	},
-  	order: function(e){
-  		if($(e.target).hasClass("order-unselected")) {
-  			//order up
-  			$(e.target).removeClass('order-unselected');
-  			this.$broadcast("order", 1);
-  		} else {
-  			//order normal
-  			$(e.target).addClass("order-unselected");
-  			this.$broadcast("order", 0);
-  		}
   	}
   },
   components: { 	
@@ -106,7 +95,8 @@ new Vue({
 				startTimer: null,
 				results: null,
 				results_data: null,
-				order: 0
+				order: 0,
+				theads: ["名称", "最新", "涨跌", "涨幅", "昨日", "最高", "最低"]
 			};
 		},   		
   		ready: function() {
@@ -115,13 +105,6 @@ new Vue({
   		},
   		destroyed: function() {
   			this.clearTimer();
-  		},
-  		events: {
-  			order: function(msg) {
-  				console.log("order: " + msg);
-  				this.order = msg;
-  				this.formatResult();
-  			}
   		},
 		methods: {
 			fetchData: function() {
@@ -160,22 +143,52 @@ new Vue({
 			},
 			formatResult: function() {
 				if(!this.results_data || !this.results_data.length) return;
-				var sortArr = [];
+				this.results = this.results_data.slice(0, -1);
 				console.log("this.order: " + this.order);
-				if(this.order != 0) {
-					sortArr = this.results_data.slice(0, -1)
-					sortArr.sort(function(a, b){
-						return (b[0][3] - b[0][2]) - (a[0][3] - a[0][2]);
+				if(this.order == 1) {
+					this.results.sort(function(a, b){
+						return ((b[0][3] - b[0][2]) * 100 / b[0][2]).toFixed(2) - ((a[0][3] - a[0][2]) * 100 / a[0][2]).toFixed(2);
 					});
-				} else {
-					sortArr = this.results_data;
-				}
+				} 
+				if(this.order == -1) {
+					this.results.sort(function(a, b){
+						return ((a[0][3] - a[0][2]) * 100 / a[0][2]).toFixed(2) - ((b[0][3] - b[0][2]) * 100 / b[0][2]).toFixed(2);
+					});
+				} 
+				var _this = this;
 				var results = [];
-				sortArr.forEach(function(obj){
-					var result = obj[0], code = obj[1];
-					results.push(formatResult(result, code));
+				this.results.forEach(function(ret) {
+					var result = [];
+					result[0] = [ret[0][0], ret[1].replace(/s[z|h]/,"")];//[name, code]
+					result[1] = parseFloat(ret[0][3], 10).toFixed(2);//curPrice
+					result[2] = (ret[0][3] - ret[0][2]).toFixed(2);//diff		
+					result[3] = ((ret[0][3] - ret[0][2]) * 100 / ret[0][2]).toFixed(2);//percent
+					result[4] = parseFloat(ret[0][2],10).toFixed(2);//yestodayPrice		
+					result[5] = parseFloat(ret[0][4],10).toFixed(2);//highestPrice		
+					result[6] = parseFloat(ret[0][5],10).toFixed(2);//lowestPrice	
+					results.push(result);	
 				});
-				this.results = "<table cellspacing='0' cellpadding='0'>" + results.join("") + "</table>";
+				this.results = results;		
+			},
+			orderHandler: function(e) {
+				var order = parseInt($(e.target).data("order"), 10);
+				switch(order) {
+					case 0:
+						order= 1;
+						$(e.target).html("涨幅↑");
+					break;
+					case 1:
+						order= -1;
+						$(e.target).html("涨幅↓");
+					break;
+					case -1:
+						order= 0;
+						$(e.target).html("涨幅");
+					break;
+				}
+				this.order = order;
+				$(e.target).data("order", order);
+				this.formatResult();
 			},
 			clearTimer: function() {
 				if(this.timer) {
