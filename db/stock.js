@@ -6,10 +6,12 @@ var stockScheMa = new mongoose.Schema({
 		required: true		
 	},	
 	name: {
-		type: String,
-		required: true
+		type: String
 	},	
-	type: {
+	pinyin: {
+		type: String
+	},
+	tags: {
 		type: [String],
 		required: true		
 	}

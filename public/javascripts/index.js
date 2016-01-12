@@ -1,6 +1,6 @@
-var Vue = require("vue");
-var $ = require("./jquery-2.1.4.min");
-
+$.getJSON("/api/suggest/002673",function(data){
+	alert(JSON.stringify(data.Result[0]))
+});	
 var xhr = new XMLHttpRequest();
 new Vue({
 	el: "#stock-search",

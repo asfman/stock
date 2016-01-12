@@ -14,7 +14,7 @@ router.route("/stock/:code").post(function(req, res, next) {//更新是否解决
 		res.json({message: "remove successfully!"});
 	});	
 });
-router.route("/query/:code").get(function(req, res, next) {
+router.route("/query/:code").get(function(req, res) {
 	res.header("Access-Control-Allow-Origin", "*");
 	//console.log(req.params.code);
 	var url = "http://hq.sinajs.cn/list=" + req.params.code;
@@ -32,5 +32,22 @@ router.route("/query/:code").get(function(req, res, next) {
         res.end(str);
       });
     });
+});
+router.route("/suggest/:code").get(function(req, res){
+	var urlencode = require('urlencode');
+	var url = "http://cjhq.baidu.com/suggest?code5=" + urlencode(req.params.code, "gbk");
+	var http = require('http');
+	var BufferHelper = require('bufferhelper');
+	var iconv = require('iconv-lite');
+    http.get(url,function(sres){
+      var bufferHelper = new BufferHelper();
+      sres.on('data', function (chunk) {
+        bufferHelper.concat(chunk);
+      });
+      sres.on('end',function(){
+        var str = iconv.decode(bufferHelper.toBuffer(),'GBK');
+        res.json(JSON.parse(str));
+      });
+    });	
 });
 module.exports = router;
