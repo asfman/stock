@@ -73,7 +73,6 @@
 		border-radius: 8px;
 	}
 	.results {
-		line-height: 2.2rem;
 		border: 1px solid #eee;
 		background: #fff;
 		padding: 6px 20px;
@@ -101,9 +100,11 @@
 	table {
 		border-collapse: collapse;
 	}
+	th {
+		line-height: 2;
+	}
 	td {
 		padding: 0 4px;
-		line-height: 1.5;
 		border: 1px solid #f7f7f7;
 		text-align: center;
 	}
@@ -142,7 +143,7 @@
 					<tbody>
 						<tr v-for="tr in results">
 							<td v-for="(idx, td) in tr" track-by="$index">
-								<p v-if="idx==0">{{td[0]}}<br />{{td[1]}}</p>
+								<p v-if="idx==0" title="{{td[1]}}">{{td[0]}}</p>
 								<p v-bind:class="td.indexOf('-')>-1?'green':''" v-else>
 									<span v-if="tr[5] != 0.00">{{idx==3?td+"%":td}}</span>
 									<span v-else>{{idx == 1 ? td : " - "}}</span>
