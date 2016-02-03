@@ -121,7 +121,7 @@
 		<input class="search" placeholder="input code to search" type="text" v-model="code" @keyup.enter="getPrice" />
 		<p>{{{ result }}}</p>
 	</div>
-	<div id="stock_ct">
+	<div id="stock_ct" class="hide">
 		<ul class="stock_nav">
 			<li @click="switchTab" v-bind:class="[currentView=='realtime'?'on':'off']">realtime</li>
 			<li @click="switchTab" v-bind:class="[currentView=='edit'?'on':'off']">edit</li>
