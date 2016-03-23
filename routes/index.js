@@ -10,4 +10,15 @@ router.get('/test', function(req, res) {
   res.render('test', { title: 'Hello Vue.js' });
 });
 
+router.get('/wjd', function(req, res) {
+	var url = "http://iguba.eastmoney.com/action.aspx?action=getuserreply&uid=2923094077285486&rnd=" + new Date().getTime();
+	var fetch = require('node-fetch');
+	fetch(url)
+	.then(function(res) {
+        return res.json();
+    }).then(function(json) {
+        res.render('wujiandao', json);
+    });	
+});
+
 module.exports = router;

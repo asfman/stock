@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>无间道大师傅的评论</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <style type="text/css">
+    	body{font-size: 16px; font-family: simsun;}
+    	a {text-decoration: none;}
+    	.clear {clear: both;}
+		.clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+		.clearfix {*display: inline-block;}
+		.myreplylist {max-width: 600px; margin: 0 auto;}
+		.myreplylist .item {  border-bottom: 1px solid #CCCCCC; }
+		.myreplylist .item .cont { padding: 12px;  }
+		.myreplylist .item .cont .context { font-size: 14px; line-height: 1.8; padding-bottom: 15px;word-break: break-all; word-wrap: break-word;  }
+		.myreplylist .item .cont .context .time { font-size: 12px; color: #999999; }
+		.myreplylist .item .yw { clear: both; font-size: 12px;}
+		.myreplylist .item .yw .ywt { float: left; width: 37px; border-right: 2px solid #CCCCCC; height: 32px; color: #999999;  }
+		.myreplylist .item .yw .ywcon { float: left;}
+		.myreplylist .item .yw .ywcont { padding-left: 10px; }
+		.myreplylist .item .yw .ywtime {  float: left; padding: 6px 0 0px 10px; color: #999999; }
+		.myreplylist .item .yw .itemb { float: right; padding: 6px 10px 0px 0; }
+		.myreplylist .item .yw .ywtitle {  }
+		.myreplylist .item .conbtns {  }
+		.myreplylist .item .conbtns .time { float: left; color: #999999;padding: 0px 0 12px 0px; }
+		.myreplylist .item .conbtns .btns { float: right;padding: 0px 10px 12px 0; }
+		.myreplylist .item .conttitle { font-weight: bold; }    	
+    </style>
+  </head>
+  <body>
+		<div class="myreplylist">
+		<%re.forEach(function(item){%>
+			<div class="item">
+				<div class="cont">
+					<div class="context"><%-item.te%><span class="time">(<%=item.ti%>)</span></div>
+					<div class="yw">
+						<div class="ywt">主帖</div>
+						<div class="ywcon">
+							<div class="ywcont">
+								<span class="ywname"><a href="http://iguba.eastmoney.com/<%=item.ud%>" target="_blank"><%=item.nc%></a>:</span>
+								<span class="ywtitle"><a href="http://guba.eastmoney.com/news,<%=item.cd%>,<%=item.td%>.html" target="_blank"><%=item.tt%></a></span>
+							</div>
+							<div class="itembtns">
+								<div class="ywtime"><%=item.tm%> 来自<a href="http://guba.eastmoney.com/list,<%=item.cd%>.html" target="_blank" data-popmccode="<%=item.cd%>.sh">*ST成城吧</a>
+								</div>
+								<div class="itemb"></div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>	
+	  	<%})%>
+	  	</div>	
+  </body>
+</html>
