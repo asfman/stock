@@ -199,7 +199,19 @@
 						this.result = "<table cellspacing='0' cellpadding='0'>" + formatResult(result.split(","), code) + "</table>";
 					}
 				}
-			})
+			});
+
+			var queryString = function(name, target){
+					if(!/^\w+$/.test(name)) return null;
+					var url = target||location.href;
+					var re = new RegExp("(?:\\?|\\&)" + name + "=([^&]*)","i");
+					if(!re.test(url)) return null;
+					return decodeURIComponent(re.exec(url)[1]);
+				};
+			if(queryString("code")) {
+				searchVue.code = queryString("code");
+				searchVue.getPrice();
+			}		
 
 			function formatResult(ret, code) {
 				var sHtml = "<tr>";
