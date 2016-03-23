@@ -37,11 +37,11 @@
 						<div class="ywt">主帖</div>
 						<div class="ywcon">
 							<div class="ywcont">
-								<span class="ywname"><a href="http://iguba.eastmoney.com/<%=item.ud%>" target="_blank"><%=item.nc%></a>:</span>
+								<span class="ywname"><a href="http://iguba.eastmoney.com/<%=item.ud%>" target="_blank"><%=item.nc.replace(/股市/,"")%></a>:</span>
 								<span class="ywtitle"><a href="http://guba.eastmoney.com/news,<%=item.cd%>,<%=item.td%>.html" target="_blank"><%=item.tt%></a></span>
 							</div>
 							<div class="itembtns">
-								<div class="ywtime"><%=item.tm%> 来自<a href="http://guba.eastmoney.com/list,<%=item.cd%>.html" target="_blank" data-popmccode="<%=item.cd%>.sh">*ST成城吧</a>
+								<div class="ywtime"><%=item.tm%> 来自<a href="http://guba.eastmoney.com/list,<%=item.cd%>.html" target="_blank" data-popmccode="<%=item.cd%>.sh"><%=item.sn%></a>
 								</div>
 								<div class="itemb"></div>
 							</div>
