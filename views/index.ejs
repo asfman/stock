@@ -179,6 +179,7 @@
 				el: "#stock-search",
 				data: {
 					code: null,
+					searchCode: null,
 					result: null
 				},
 				methods: {
@@ -191,12 +192,13 @@
 						if(code.length == 6)
 							code = code.indexOf("6") == 0 ? "sh" + code : "sz" + code;
 						socket.emit('search', code);
+						this.searchCode = code;
 					},
 					handleResult: function(ret) {
 						console.log("ret: " + ret);
 						eval(ret);
-						var result = eval("hq_str_" + code);
-						this.result = "<table cellspacing='0' cellpadding='0'>" + formatResult(result.split(","), code) + "</table>";
+						var result = eval("hq_str_" + this.searchCode);
+						this.result = "<table cellspacing='0' cellpadding='0'>" + formatResult(result.split(","), this.code) + "</table>";
 					}
 				}
 			});
