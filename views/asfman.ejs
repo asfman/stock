@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <style type="text/css">
+    	.search {
+    		padding: 8px;
+    		min-width: 200px;
+    	}
+    </style>
+  </head>
+  <body>
+	<div id="cmd">
+		<input class="search" v-model="password" type="password" /><br />
+		<input class="search" placeholder="input command to execute" type="text" v-model="command" @keyup.enter="doCommand" />
+		<p>{{ result }}</p>
+	</div>
+	<script type="text/javascript" src="/javascripts/require.js"></script>
+	<script type="text/javascript" src="/javascripts/require-config.js"></script>
+    <script type="text/javascript">
+		require(["jquery", "vue", "io"], function($, Vue, io, Sortable){
+			var socket = io();
+			socket.on('command-result', function(data){
+				commandVue.handleResult(data);
+			});	    
+			var commandVue = new Vue({
+				el: "#cmd",
+				data: {
+					command: null,
+					result: null,
+					password: null
+				},
+				methods: {
+					doCommand: function() {
+						var command = this.command;
+						if(!command) return this.result="";
+						command += "";
+						socket.emit('command', {command: command, password: this.password});
+					},
+					handleResult: function(result) {
+						this.result = result;
+					}
+				}
+			});
+		});
+    </script>
+  </body>
+</html>	    
