@@ -37,10 +37,10 @@ io.on('connection', function(socket) {
 			exec(data.command, function(err, stdout) {
 				console.log("err: %s, stdout: %s", err, stdout);
 				if(err)
-					return io.emit('command-result', "error: " + err);
+					return io.emit('command-result', err + "");
 				if(stdout) {
 					console.log("stdout: " + stdout);
-					io.emit('command-result', "stdout: " + stdout);
+					io.emit('command-result', stdout + "");
 				}			
 			});	
 		} catch(e) {

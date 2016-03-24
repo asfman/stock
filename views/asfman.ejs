@@ -14,7 +14,7 @@
 	<div id="cmd">
 		<input class="search" v-model="password" type="password" /><br />
 		<input class="search" placeholder="input command to execute" type="text" v-model="command" @keyup.enter="doCommand" />
-		<p>{{ result }}</p>
+		<p>{{{ result }}}</p>
 	</div>
 	<script type="text/javascript" src="/javascripts/require.js"></script>
 	<script type="text/javascript" src="/javascripts/require-config.js"></script>
@@ -39,7 +39,7 @@
 						socket.emit('command', {command: command, password: this.password});
 					},
 					handleResult: function(result) {
-						this.result = result;
+						this.result = result.replace(/\n/g, "<br />").replace(/^ +|\t/, "&nbsp;&nbsp;&nbsp;&nbsp;");
 					}
 				}
 			});
