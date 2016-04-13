@@ -35,7 +35,7 @@ router.route("/query/:code").get(function(req, res) {
 });
 router.route("/suggest/:code").get(function(req, res){
 	var urlencode = require('urlencode');
-	var url = "http://cjhq.baidu.com/suggest?code5=" + urlencode(req.params.code, "gbk");
+	var url = "http://gupiao.baidu.com/api/search/stockquery?from=pc&os_ver=1&cuid=xxx&vv=3.2&format=json&query_content=" + req.params.code + "&timestamp=" + Date.now();
 	var http = require('http');
 	var BufferHelper = require('bufferhelper');
 	var iconv = require('iconv-lite');
