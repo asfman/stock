@@ -27,29 +27,14 @@
 		.myreplylist .item .conttitle { font-weight: bold; }    	
     </style>
   </head>
-  <body>
-		<div style='margin:0 auto;width:0px;height:0px;overflow:hidden;'>
-			<img src="http://pic.baike.soso.com/p/20130801/20130801095829-1036860882.jpg" width='700'>
-		</div>  
+  <body> 
 		<div class="myreplylist">
 		<%re.forEach(function(item){%>
 			<div class="item">
 				<div class="cont">
-					<div class="context"><%-item.te%><span class="time">(<%=item.ti%>)</span></div>
+					<div class="context"><%-item.te%><span class="time">(<%=item.reply_publish_time%>)</span></div>
 					<div class="yw">
-						<div class="ywt">主帖</div>
-						<div class="ywcon">
-							<div class="ywcont">
-								<span class="ywname"><a href="http://iguba.eastmoney.com/<%=item.ud%>" target="_blank"><%=item.nc.replace(/股市之/,"")%></a>:</span>
-								<span class="ywtitle"><a href="http://guba.eastmoney.com/news,<%=item.cd%>,<%=item.td%>.html" target="_blank"><%=item.tt%></a></span>
-							</div>
-							<div class="itembtns">
-								<div class="ywtime"><%=item.tm%> 来自<a href="http://guba.eastmoney.com/list,<%=item.cd%>.html" target="_blank" data-popmccode="<%=item.cd%>.sh"><%=item.sn%></a>
-								</div>
-								<div class="itemb"></div>
-							</div>
-						</div>
-						<div class="clear"></div>
+						<%=item.reply_text%>
 					</div>
 				</div>
 			</div>	
